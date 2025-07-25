@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 @Log4j2
 @SpringBootTest
@@ -35,5 +36,18 @@ public class BoardServiceTest {
   @Test
   public void testGet(){
     log.info(boardService.get(1L).getTitle());
+  }
+
+  @Test
+  @Transactional
+  public void testRemove(){
+    boardService.remove(202L);
+  }
+
+  @Test
+  public void testModify(){
+    BoardDTO dto = boardService.get(202L);
+    dto.setTitle("제목수정");
+    boardService.modify(dto);
   }
 }
