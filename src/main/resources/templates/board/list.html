@@ -35,9 +35,9 @@
         </tr>
         <tr th:each="b : ${dto.list}">
           <th scope="row">[[${b.bno}]]</th>
-          <td><a th:href="@{'/board/read' + ${requestDto.qs2} + '&gno=' + ${b.bno}}">[[${b.title}]]</a> <span class='text-danger'>&#91;[[${b.replyCount}]]&#93;</span> </td>
+          <td><a th:href="@{'/board/read' + ${requestDto.qs2} + '&bno=' + ${b.bno}}">[[${b.title}]]</a> <span class='text-danger'>&#91;[[${b.replyCount}]]&#93;</span> </td>
           <td th:text="${b.writerName}"></td>
-          <td th:text="${b.regDate}"></td>
+          <td th:text="${#temporals.format(b.regDate, 'yyyy-MM-dd')}"></td>
         </tr>
       </table>
 

@@ -119,5 +119,15 @@ public class BoardRepositoryTest {
     page.get().forEach(log::info);
   }
 
+  @Test
+  public void testSearch1(){  //qclass 확인  -> queryDSL을 사용하기 위한 최소 조건!!
+    repository.search1();
+  }
+
+  @Test
+  public void testSearchPage(){
+    repository.searchPage("tcw","title1", PageRequest.of(1, 5, Sort.by(Sort.Direction.DESC, "bno").and(Sort.by(Sort.Direction.ASC, "title"))));
+  }
+
 
 }
