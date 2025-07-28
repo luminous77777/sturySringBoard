@@ -52,15 +52,67 @@
     }, delay);
   }
   //내가 원하는 순서대로 작동하지않음
-  (() =>{callAsync(0); }) (); // 즉시실행 함수 형태
-  callAsync(1);
-  callAsync(2);
-  callAsync(3);
-  callAsync(4);
-  callLocal(5);
-  callLocal(6);
-  callLocal(7);
-  callLocal(8);
-  callLocal(9);
+  callAsync(0, () =>{
+    callAsync(1, ()=>{
+      callAsync(2, () => {
+        callAsync(3, () => {
+          callAsync(4, () => {
+            callLocal(5,() =>{
+              callLocal(6,() => {
+                callLocal(7,() =>{
+                  callLocal(8,() => {
+                    callLocal(9,() => {
+                      console.log("마지막 호출");
+                    });
+                  });
+                })
+              });
+            });
+          })
+        });
+      });
+    });
+  });
+
+  // (() =>{callAsync(0); }) (); // 즉시실행 함수 형태
+  // callAsync(1);
+  // callAsync(2);
+  // callAsync(3);
+  // callAsync(4);
+  // callLocal(5);
+  // callLocal(6);
+  // callLocal(7);
+  // callLocal(8);
+  // callLocal(9);
+  //------------------
+  // $.ajax({
+  //   success: (data) => {
+  //     $.ajax({
+  //       success:(data) =>{
+  //
+  //       }
+  //     })
+  //   }
+  // })
+//------------------------- jquery스타일의 체이닝 이것도 dsl 방식.
+//   $.ajax({
+//     success: (data) =>{},
+//     error: (data) =>{},
+//     finally: (data) =>{}
+//   })
+//   .done((data) => {
+//
+//   })
+//       .fail(error =>{
+//
+//       })
+//       .always(()=>{
+//
+//       })
+//   .done((data) => {
+//
+//   })
+
+  // -------
 </script>
 </html>
