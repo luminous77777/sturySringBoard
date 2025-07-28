@@ -1,4 +1,4 @@
-package com.devlumi.board.dto;
+package com.devlumi.board.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

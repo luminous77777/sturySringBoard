@@ -1,4 +1,4 @@
-package com.devlumi.board.entity;
+package com.devlumi.board.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

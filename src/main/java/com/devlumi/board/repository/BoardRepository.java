@@ -1,13 +1,12 @@
 package com.devlumi.board.repository;
 
-import com.devlumi.board.projection.dto.*;
-import com.devlumi.board.entity.Board;
+import com.devlumi.board.domain.projection.dto.*;
+import com.devlumi.board.domain.entity.Board;
 import com.devlumi.board.repository.search.SearchBoardRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;

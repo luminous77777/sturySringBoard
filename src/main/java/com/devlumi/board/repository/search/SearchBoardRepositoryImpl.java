@@ -1,12 +1,13 @@
 package com.devlumi.board.repository.search;
 
-import com.devlumi.board.entity.Board;
+import com.devlumi.board.domain.entity.Board;
 import com.devlumi.board.entity.QBoard;
 import com.devlumi.board.entity.QMember;
 import com.devlumi.board.entity.QReply;
-import com.devlumi.board.projection.dto.BoardWithReplyCount;
+import com.devlumi.board.domain.projection.dto.BoardWithReplyCount;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPQLQuery;
 import lombok.extern.log4j.Log4j2;
@@ -86,14 +87,17 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
 
     getOrder(Board.class, pageable.getSort()).forEach(tuple::orderBy);
 
+    //페이지 적용
     tuple.limit(pageable.getPageSize());
     tuple.offset(pageable.getOffset());
 
-    List<?> list = tuple.fetch();
-    list.forEach(log::info);
+//    List<?> list = tuple.fetch();
+//    list.forEach(log::info);
+    //DTO Projection 변환
+    JPQLQuery<BoardWithReplyCount> query = tuple.select(Projections.constructor(BoardWithReplyCount.class , board, member, reply.count()));
 
-    return null;
-//    return new PageImpl<>(null, pageable, 1);
+    // page 타입 변환
+    return new PageImpl<>(query.fetch(), pageable, tuple.fetchCount());
   }
 
 

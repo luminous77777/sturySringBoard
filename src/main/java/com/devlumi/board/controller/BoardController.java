@@ -1,7 +1,7 @@
 package com.devlumi.board.controller;
 
-import com.devlumi.board.dto.BoardDTO;
-import com.devlumi.board.dto.PageRequestDTO;
+import com.devlumi.board.domain.dto.BoardDTO;
+import com.devlumi.board.domain.dto.PageRequestDTO;
 import com.devlumi.board.service.BoardService;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;

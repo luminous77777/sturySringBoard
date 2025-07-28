@@ -1,7 +1,8 @@
 package com.devlumi.board.repository;
 
-import com.devlumi.board.entity.Board;
-import com.devlumi.board.entity.Reply;
+import com.devlumi.board.domain.entity.Board;
+import com.devlumi.board.domain.entity.Reply;
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import java.util.Random;
 import java.util.stream.IntStream;
 
 
+@Log4j2
 @SpringBootTest
 public class ReplyRepositoryTest {
 
@@ -47,5 +49,16 @@ public class ReplyRepositoryTest {
 //    log.info(reply);
 //    log.info(reply.getBoard());
 //    log.info(reply.getBoard().getWriter());
+
+  }
+
+  @Test
+  public void testFindByBoard_Bno(){
+    repository.findByBoard_BnoOrderByRno(2L).forEach(log::info);
+  }
+
+  @Test
+  public void testFindByBoard(){
+    repository.findByBoard(Board.builder().bno(2L).build()).forEach(log::info);
   }
 }

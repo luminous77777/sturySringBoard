@@ -1,6 +1,6 @@
 package com.devlumi.board.repository;
 
-import com.devlumi.board.entity.Member;
+import com.devlumi.board.domain.entity.Member;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

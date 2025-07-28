@@ -1,7 +1,7 @@
 package com.devlumi.board.repository.search;
 
-import com.devlumi.board.entity.Board;
-import com.devlumi.board.projection.dto.BoardWithReplyCount;
+import com.devlumi.board.domain.entity.Board;
+import com.devlumi.board.domain.projection.dto.BoardWithReplyCount;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

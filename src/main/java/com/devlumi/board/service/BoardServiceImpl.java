@@ -1,17 +1,15 @@
 package com.devlumi.board.service;
 
-import com.devlumi.board.dto.BoardDTO;
-import com.devlumi.board.dto.PageRequestDTO;
-import com.devlumi.board.dto.PageResponseDTO;
-import com.devlumi.board.entity.Board;
-import com.devlumi.board.projection.dto.BoardWithReplyCount;
+import com.devlumi.board.domain.dto.BoardDTO;
+import com.devlumi.board.domain.dto.PageRequestDTO;
+import com.devlumi.board.domain.dto.PageResponseDTO;
+import com.devlumi.board.domain.entity.Board;
+import com.devlumi.board.domain.projection.dto.BoardWithReplyCount;
 import com.devlumi.board.repository.BoardRepository;
 import com.devlumi.board.repository.ReplyRepository;
 import jakarta.transaction.Transactional;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +30,7 @@ public class BoardServiceImpl implements BoardService{
   @Override
   public PageResponseDTO<BoardDTO, BoardWithReplyCount> getList(PageRequestDTO pageRequestDTO) {
     return new PageResponseDTO<>(
-            boardRepository.getBoardWithReplyCount3(pageRequestDTO.getPageable(Sort.by(Sort.Direction.DESC,"bno")))
+            boardRepository.searchPage(pageRequestDTO.getType(), pageRequestDTO.getKeyword(), pageRequestDTO.getPageable(Sort.by(Sort.Direction.DESC,"bno")))
             , this::projectionToDTO);
   }
 

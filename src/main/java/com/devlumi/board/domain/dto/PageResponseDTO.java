@@ -1,4 +1,4 @@
-package com.devlumi.board.dto;
+package com.devlumi.board.domain.dto;
 
 import lombok.Data;
 import org.springframework.data.domain.Page;

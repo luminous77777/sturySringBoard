@@ -1,7 +1,7 @@
-package com.devlumi.board.projection.dto;
+package com.devlumi.board.domain.projection.dto;
 
-import com.devlumi.board.entity.Board;
-import com.devlumi.board.entity.Member;
+import com.devlumi.board.domain.entity.Board;
+import com.devlumi.board.domain.entity.Member;
 import lombok.Getter;
 
 @Getter

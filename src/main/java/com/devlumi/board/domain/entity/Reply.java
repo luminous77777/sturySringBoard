@@ -1,4 +1,4 @@
-package com.devlumi.board.entity;
+package com.devlumi.board.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,13 +8,13 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString
+@ToString(exclude = "board")
 public class Reply extends BaseEntity {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long rno;
   private String text;
   private String replyer;
 
-  @ManyToOne
+  @ManyToOne(fetch =  FetchType.LAZY)
   private Board board;
 }

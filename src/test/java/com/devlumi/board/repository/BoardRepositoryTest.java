@@ -1,8 +1,8 @@
 package com.devlumi.board.repository;
 
-import com.devlumi.board.projection.dto.*;
-import com.devlumi.board.entity.Board;
-import com.devlumi.board.entity.Member;
+import com.devlumi.board.domain.projection.dto.*;
+import com.devlumi.board.domain.entity.Board;
+import com.devlumi.board.domain.entity.Member;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -126,7 +126,12 @@ public class BoardRepositoryTest {
 
   @Test
   public void testSearchPage(){
-    repository.searchPage("tcw","title1", PageRequest.of(1, 5, Sort.by(Sort.Direction.DESC, "bno").and(Sort.by(Sort.Direction.ASC, "title"))));
+
+    Page<BoardWithReplyCount> bwrc = repository.searchPage("tcw","title1", PageRequest.of(1, 5, Sort.by(Sort.Direction.DESC, "bno").and(Sort.by(Sort.Direction.ASC, "title"))));
+
+    log.info(bwrc.getTotalPages());
+    log.info(bwrc.getTotalElements());
+    bwrc.getContent().forEach(log::info);
   }
 
 

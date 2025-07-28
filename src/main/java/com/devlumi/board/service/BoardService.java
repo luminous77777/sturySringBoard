@@ -1,11 +1,11 @@
 package com.devlumi.board.service;
 
-import com.devlumi.board.dto.BoardDTO;
-import com.devlumi.board.dto.PageRequestDTO;
-import com.devlumi.board.dto.PageResponseDTO;
-import com.devlumi.board.entity.Board;
-import com.devlumi.board.entity.Member;
-import com.devlumi.board.projection.dto.BoardWithReplyCount;
+import com.devlumi.board.domain.dto.BoardDTO;
+import com.devlumi.board.domain.dto.PageRequestDTO;
+import com.devlumi.board.domain.dto.PageResponseDTO;
+import com.devlumi.board.domain.entity.Board;
+import com.devlumi.board.domain.entity.Member;
+import com.devlumi.board.domain.projection.dto.BoardWithReplyCount;
 
 
 public interface BoardService {

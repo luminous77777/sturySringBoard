@@ -1,8 +1,7 @@
 package com.devlumi.board.service;
 
-import com.devlumi.board.dto.BoardDTO;
-import com.devlumi.board.dto.PageRequestDTO;
-import com.devlumi.board.repository.BoardRepository;
+import com.devlumi.board.domain.dto.BoardDTO;
+import com.devlumi.board.domain.dto.PageRequestDTO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
