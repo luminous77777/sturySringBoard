@@ -31,4 +31,36 @@
 
   </th:block>
 </th:block>
+<script>
+  //전역으로 counter 0
+  // 10 ** 3
+  let counter = 0;
+  function callLocal(n, cb){
+    const add = 10 ** n;
+    counter += add;
+    console.log(`[local] 10^${n} = ${add} -> counter : ${counter}`);
+    if(cb) cb();
+  }
+  function callAsync(n, cb){
+    const add = 10 ** n;
+    const delay =Math.floor(Math.random() * 1000); // 0~ 999
+
+    setTimeout(() => {
+      counter += add;
+      console.log(`[async] 10^${n} = ${add} -> counter : ${counter}, delay: ${delay}ms`);
+      if(cb) cb();
+    }, delay);
+  }
+  //내가 원하는 순서대로 작동하지않음
+  (() =>{callAsync(0); }) (); // 즉시실행 함수 형태
+  callAsync(1);
+  callAsync(2);
+  callAsync(3);
+  callAsync(4);
+  callLocal(5);
+  callLocal(6);
+  callLocal(7);
+  callLocal(8);
+  callLocal(9);
+</script>
 </html>

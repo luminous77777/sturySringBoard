@@ -1,9 +1,9 @@
 package com.devlumi.board.repository.search;
 
 import com.devlumi.board.domain.entity.Board;
-import com.devlumi.board.entity.QBoard;
-import com.devlumi.board.entity.QMember;
-import com.devlumi.board.entity.QReply;
+import com.devlumi.board.domain.entity.QBoard;
+import com.devlumi.board.domain.entity.QMember;
+import com.devlumi.board.domain.entity.QReply;
 import com.devlumi.board.domain.projection.dto.BoardWithReplyCount;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.Tuple;
@@ -15,7 +15,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
-
 import java.util.List;
 
 @Log4j2
