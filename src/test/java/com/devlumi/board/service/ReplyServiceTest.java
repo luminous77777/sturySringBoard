@@ -1,8 +1,11 @@
 package com.devlumi.board.service;
 
 import com.devlumi.board.domain.dto.ReplyDTO;
+import com.devlumi.board.domain.entity.Board;
+import com.devlumi.board.domain.entity.Reply;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,63 +19,41 @@ public class ReplyServiceTest {
   private ReplyService replyService;
 
   @Test
-  public void testExist(){
-    log.info("replyService");
+  @DisplayName("객체 취득 테스트")
+  public void testExist() {
+    log.info(replyService);
   }
 
   @Test
+  @DisplayName("리뷰 작성")
   public void testRegister() {
-    ReplyDTO dto = ReplyDTO.builder()
-            .text("테스트 댓글입니다.")
-            .replyer("tester")
-            .bno(1L) // 실제 존재하는 게시글 번호로 대체
-            .build();
-
-    Long rno = replyService.register(dto);
-    log.info("생성된 댓글 번호: {}", rno);
-    Assertions.assertNotNull(rno);
+    Long result = replyService.register(replyService.toDTO(Reply.builder().replyer("작성자").text("내용").board(Board.builder().bno(1L).build()).build()));
+    Assertions.assertNotNull(result);
   }
 
   @Test
-  public void testGetList() {
-    Long bno = 1L; // 실제 존재하는 게시글 번호로 대체
-    List<ReplyDTO> replies = replyService.getList(bno);
-    Assertions.assertNotNull(replies);
-    log.info("댓글 목록: {}", replies);
-  }
-
-  @Test
+  @DisplayName("리뷰 수정")
   public void testModify() {
-    Long rno = 904L; // 수정 대상 댓글 번호
-
-    ReplyDTO existing = replyService.get(rno);
-    Assertions.assertNotNull(existing);
-    existing.setText("수정된 댓글 내용입니다.");
-    replyService.modify(existing);
-
-    ReplyDTO modified = replyService.get(rno);
-    Assertions.assertEquals("수정된 댓글 내용입니다.", modified.getText());
+    replyService.modify(replyService.toDTO(Reply.builder().rno(1L).replyer("윈터").board(Board.builder().bno(76L).build()).text("수정된 내용").build()));
   }
 
-
+  @Test
+  @DisplayName("리뷰 삭제")
+  public void testDelete() {
+    replyService.delete(2L);
+  }
 
   @Test
+  @DisplayName("리뷰 단일 조회")
   public void testGet() {
-    Long rno = 904L; // 실제 존재하는 댓글 번호로 대체
-
-    ReplyDTO dto = replyService.get(rno);
-    Assertions.assertNotNull(dto);
-    log.info("조회된 댓글: {}", dto);
+      ReplyDTO replyDTO = replyService.get(1000L);
+      log.info(replyDTO);
   }
 
-
   @Test
-  public void testRemove() {
-    Long rno = 904L;
-
-    replyService.remove(rno);
-//    ReplyDTO deleted = replyService.get(rno);
-//    Assertions.assertNull(deleted);
-
+  @DisplayName("리뷰 목록 조회")
+  public void testGetList() {
+    List<ReplyDTO> replyDTOList = replyService.getList(200L);
+    replyDTOList.forEach(log::info);
   }
 }

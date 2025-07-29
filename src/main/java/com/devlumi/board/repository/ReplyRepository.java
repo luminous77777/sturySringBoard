@@ -13,4 +13,6 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
   List<Reply> findByBoard_BnoOrderByRno(Long bno);
 
   List<Reply> findByBoard(Board build);
+
+    List<Reply> findByBoard_bnoOrderByRnoDesc(Long boardBno);
 }

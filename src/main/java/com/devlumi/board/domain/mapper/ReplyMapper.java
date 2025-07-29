@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface ReplyMapper {
   @Mapping(source = "board.bno", target = "bno")
-  ReplyDTO toDto(Reply reply);
+  ReplyDTO toDTO(Reply reply);
 
 //  @Mapping(source = "bno", target = "board.bno")
   @InheritInverseConfiguration
