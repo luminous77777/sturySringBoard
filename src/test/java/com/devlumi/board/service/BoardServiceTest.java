@@ -17,6 +17,8 @@ public class BoardServiceTest {
 
   @Test
   public void testRegister(){
+
+
     BoardDTO dto = BoardDTO.builder()
             .title("test title")
             .content("test content")
