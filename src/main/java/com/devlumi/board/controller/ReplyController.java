@@ -34,4 +34,20 @@ public class ReplyController {
     return ResponseEntity.ok(replyService.register(dto));
   }
 
+  @DeleteMapping("/{rno}")
+  public ResponseEntity<?> deleteReply(@PathVariable("rno") Long rno){
+    log.info(rno + "번 삭제");
+    replyService.delete(rno);
+    return new ResponseEntity<>("success",HttpStatus.OK);
+  }
+
+  @PutMapping("/{rno}")
+  public ResponseEntity<?> updateReply(@PathVariable("rno") Long rno,@RequestBody ReplyDTO dto){
+    log.info(dto);
+    replyService.modify(dto);
+    return new ResponseEntity<>("success",HttpStatus.OK);
+  }
+
+
+
 }

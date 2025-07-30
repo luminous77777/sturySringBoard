@@ -78,38 +78,36 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.13/plugin/relativeTime.min.js" integrity="sha512-MVzDPmm7QZ8PhEiqJXKz/zw2HJuv61waxb8XXuZMMs9b+an3LoqOqhOEt5Nq3LY1e4Ipbbd/e+AWgERdHlVgaA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.13/locale/ko.min.js" integrity="sha512-ycjm4Ytoo3TvmzHEuGNgNJYSFHgsw/TkiPrGvXXkR6KARyzuEpwDbIfrvdf6DwXm+b1Y+fx6mo25tBr1Icg7Fw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script th:inline="javascript">
-  window.addEventListener("load", e =>{
+  window.addEventListener("load", e => {
     dayjs.extend(window.dayjs_plugin_relativeTime)
     dayjs.locale('ko')
 
     const bno = [[${dto.bno}]];  //변수호출 방식의 안정적인 보장을 위해서
     const listGroup = document.querySelector(".replyList");
     const myModal = new bootstrap.Modal(document.querySelector('.modal'));
-      const loadJSONData = () => {
+    const loadJSONData = () => {
       //e.type -> click 이렇게 나온다.
       //dayjs 전역 설정
       fetch(`/replies/board/${bno}`)
-          .then(resp => resp.json())
-          .then(arr => {   //여기서 this는 windows객체 이다.
-            console.log(arr);
-            //success function;  //이벤트 위임 query selecter, 템플릿 리터럴을 사용하여 작성
-            document.querySelector(".replyCount").innerHTML = "Reply Count" + arr.length; // 기존 리스트 초기화
-            listGroup.innerHTML = arr.map(r => {  //,  listGroup의 내부에 html을 만듬
-              console.log(r)  //문자열 배열들,
-              return `
+              .then(resp => resp.json())
+              .then(arr => {   //여기서 this는 windows객체 이다.
+                console.log(arr);
+                //success function;  //이벤트 위임 query selecter, 템플릿 리터럴을 사용하여 작성
+                document.querySelector(".replyCount").innerHTML = "Reply Count" + arr.length; // 기존 리스트 초기화
+                listGroup.innerHTML = arr.map(r => {  //,  listGroup의 내부에 html을 만듬
+                  console.log(r)  //문자열 배열들,
+                  return `
                 <li class="card list-group-item" data-rno="${r.rno}"><b>${r.rno}</b>
                 <div class="card-body">
                    <h5 class="card-title">${r.text}</h5>
-                   <h5 class="card-subtitle mb-2 text-muted">${r.replyer}</h5>
+                     <h5 class="card-subtitle mb-2 text-muted">${r.replyer}</h5>
                    <p class="card-text">${dayjs(r.regDate).fromNow()}</p>
                  </div>
                 </li>
               `;
-            }).join("")
-          })
+                }).join("")
+              })
     };
-
-
 
 
     document.querySelector('.replyCount').addEventListener("click", () => loadJSONData()); //배열을 문자로 합침. 문자열 배열을 통합된 문자열로 출력하는 과정이 있어야함
@@ -117,8 +115,11 @@
     document.querySelector('.addReply').addEventListener("click", () => {
 
 
-      document.querySelectorAll('.modal input[type=text]').forEach(i => i.value ='');
-      [...document.querySelectorAll(".modal-footer button")].filter(b => {b.classList.add('d-none');  return b.matches('.replyClose, .replySave');}).forEach(b=> b.classList.remove('d-none'));
+      document.querySelectorAll('.modal input[type=text]').forEach(i => i.value = '');
+      [...document.querySelectorAll(".modal-footer button")].filter(b => {
+        b.classList.add('d-none');
+        return b.matches('.replyClose, .replySave');
+      }).forEach(b => b.classList.remove('d-none'));
       //console.log(b.matches('.replyClose, .replySave'));
       myModal.show();
       //click ev 부여
@@ -128,7 +129,7 @@
       //then 이하 처리 //전부 테스트
     });
 
-    document.querySelector('.replySave').addEventListener('click', e =>{
+    document.querySelector('.replySave').addEventListener('click', e => {
       //1
       console.log("save 선택");
       //2
@@ -139,20 +140,21 @@
 
       fetch("/replies", {
         method: "POST",
-        headers: { "Content-Type": "application/json"
+        headers: {
+          "Content-Type": "application/json"
         },
         body: JSON.stringify(reply)
       })
-          .then(resp => resp.json())
-          .then(data => {
-            console.log(data);
-            alert(data + "번 댓글 등록됨")
-            myModal.hide();
-            loadJSONData(e);
-          });
+              .then(resp => resp.json())
+              .then(data => {
+                console.log(data);
+                alert(data + "번 댓글 등록됨")
+                myModal.hide();
+                loadJSONData(e);
+              });
     })
 
-    document.querySelector('.replyList').addEventListener('click', function(e) {
+    document.querySelector('.replyList').addEventListener('click', function (e) {
       const target = e.target;
 
       // 클릭된 요소 또는 그 부모가 .card-body 인지 확인
@@ -164,16 +166,97 @@
         if (card) {
           const rno = card.getAttribute('data-rno');
 
-          [...document.querySelectorAll(".modal-footer button")].filter(b => {b.classList.add('d-none');  return b.matches('.replyModify, .replyRemove, .replyClose');}).forEach(b=> b.classList.remove('d-none'));
+          [...document.querySelectorAll(".modal-footer button")].filter(b => {
+            b.classList.add('d-none');
+            return b.matches('.replyModify, .replyRemove, .replyClose');
+          }).forEach(b => b.classList.remove('d-none'));
 
-          document.querySelector("input[name='rno']")
+          // 카드 내부에서 텍스트 가져오기
+          const text = card.querySelector('.card-title')?.textContent.trim();
+          const replyer = card.querySelector('.card-subtitle')?.textContent.trim();
+
+
           document.querySelector("input[name='rno']").value = rno;
+          document.querySelector("input[name='text']").value = text || '';
+          document.querySelector("input[name='replyer']").value = replyer || '';
 
           myModal.show();
         }
       }
     });
-  });
+
+    document.querySelector('.replyRemove').addEventListener('click', e => {
+      const rno = document.querySelector("input[name='rno']").value;
+
+      if (!rno) {
+        alert("댓글 번호가 존재하지 않습니다.");
+        return;
+      }
+
+      if (!confirm(`${rno}번 댓글을 삭제하시겠습니까?`)) return;
+
+      fetch(`/replies/${rno}`, {
+        method: "DELETE"
+      })
+              .then(resp => {
+                if (!resp.ok) throw new Error("삭제 실패");
+                return resp.text(); // 혹은 .json() 서버 반환에 따라
+              })
+              .then(data => {
+                alert(`${rno}번 댓글 삭제됨`);
+                myModal.hide();
+                loadJSONData(e);  // 댓글 목록 재로드
+              })
+              .catch(err => {
+                console.error(err);
+                alert("삭제 중 오류 발생");
+              });
+    });
+
+    document.querySelector('.replyModify').addEventListener('click', e => {
+      const rno = document.querySelector("input[name='rno']").value;
+
+      if (!rno) {
+        alert("댓글 번호가 없습니다.");
+        return;
+      }
+
+      const modalElement = document.querySelector('.modal');
+
+      const reply = { rno };
+
+      // 댓글 작성자와 내용 수집
+      modalElement.querySelectorAll("input[type=text]").forEach(i => {
+        reply[i.name] = i.value;
+      });
+
+      // 📌 bno 전역 변수도 reply 객체에 포함시킴
+      reply.bno = bno;
+
+      console.log("수정할 내용:", reply);
+
+      fetch(`/replies/${rno}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(reply)
+      })
+              .then(resp => {
+                if (!resp.ok) throw new Error("수정 실패");
+                return resp.text();
+              })
+              .then(data => {
+                alert(`${rno}번 댓글이 수정되었습니다.`);
+                myModal.hide();
+                loadJSONData(e);
+              })
+              .catch(err => {
+                console.error(err);
+                alert("수정 중 오류가 발생했습니다.");
+              });
+    });
+  })
 
 </script>
 </html>
